@@ -109,8 +109,35 @@ const Scheme = () => {
     return digitalSignal;
   }
 
+  function differentialManchester(initial: string) {
+    let status = initial
+    const digitalSignal = []
+
+    for(let i = 0; i < binarySequence.length; i++) {
+      if(binarySequence[i] === SignalLevel.LOW.toString()) {
+        if(status === SignalLevel.HIGH.toString()) {
+          digitalSignal.push([SignalLevel.LOW.toString(), SignalLevel.HIGH.toString()])          
+          status = SignalLevel.HIGH.toString()
+        } else if(status === SignalLevel.LOW.toString()) {
+          digitalSignal.push([SignalLevel.HIGH.toString(), SignalLevel.LOW.toString()])
+          status = SignalLevel.LOW.toString()
+        }
+      } else {
+        if(status === SignalLevel.LOW.toString()) {
+          digitalSignal.push([SignalLevel.LOW.toString(), SignalLevel.HIGH.toString()])
+          status = SignalLevel.HIGH.toString()
+        } else if(status === SignalLevel.HIGH.toString()) {
+          digitalSignal.push([SignalLevel.HIGH.toString(), SignalLevel.LOW.toString()])
+          status = SignalLevel.LOW.toString()
+        }
+      }
+    }
+
+    return digitalSignal
+  }
+
   useEffect(() => {
-    const test = manchester();
+    const test = differentialManchester(SignalLevel.HIGH.toString());
     console.log(test);
   }, []);
 
