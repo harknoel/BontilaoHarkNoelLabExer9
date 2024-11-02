@@ -1,0 +1,4 @@
+enum SignalLevel {
+    LOW,
+    HIGH,
+}
