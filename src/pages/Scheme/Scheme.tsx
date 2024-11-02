@@ -33,12 +33,12 @@ const Scheme = () => {
 
     for (let i = 0; i < binarySequence.length; i++) {
       // there is a transition
-      if (binarySequence[i] === "1") {
+      if (binarySequence[i] === SignalLevel.HIGH.toString()) {
         if (status === SignalLevel.LOW) {
-          digitalSignal.push("1");
+          digitalSignal.push(SignalLevel.HIGH.toString());
           status = SignalLevel.HIGH;
         } else if (status === SignalLevel.HIGH) {
-          digitalSignal.push("0");
+          digitalSignal.push(SignalLevel.LOW.toString());
           status = SignalLevel.LOW;
         }
       } else {
