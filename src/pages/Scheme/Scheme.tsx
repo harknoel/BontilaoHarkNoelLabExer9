@@ -17,7 +17,7 @@ const Scheme = () => {
     EncodingScheme | undefined
   >();
 
-  const binarySequence = "01001110";
+  let binarySequence = "01001110";
 
   function nonReturnToZeroInverted() {
     let status = SignalLevel.LOW;
@@ -46,7 +46,7 @@ const Scheme = () => {
       }
     }
 
-    return digitalSignal;
+    return digitalSignal.join("");
   }
 
   function bipolarAMI() {
@@ -68,7 +68,7 @@ const Scheme = () => {
       }
     }
 
-    return digitalSignal;
+    return digitalSignal.join("");
   }
 
   function pseudoternary() {
@@ -90,7 +90,7 @@ const Scheme = () => {
       }
     }
 
-    return digitalSignal;
+    return digitalSignal.join("");
   }
 
   function manchester() {
@@ -106,7 +106,7 @@ const Scheme = () => {
       }
     }
 
-    return digitalSignal;
+    return digitalSignal.join("");
   }
 
   function differentialManchester() {
@@ -134,29 +134,38 @@ const Scheme = () => {
       }
     }
 
-    return digitalSignal
+    return digitalSignal.join("")
   }
-
-  useEffect(() => {
-    const test = differentialManchester(SignalLevel.HIGH.toString());
-    console.log(test);
-  }, []);
 
   const hasTransition = (index: number) => {
     if (index === 0) return false;
 
     switch (selectedEncoding) {
-      case EncodingScheme.NRZ_L:
-        return binarySequence[index] !== binarySequence[index - 1];
-      case EncodingScheme.NRZ_I:
-        return (
-          binarySequence[index] !== binarySequence[index - 1] &&
-          binarySequence[index] === "1"
-        );
+      // case EncodingScheme.NRZ_L:
+      //   return binarySequence[index] !== binarySequence[index - 1];
       default:
         return false;
     }
   };
+
+  switch(selectedEncoding) {
+    case EncodingScheme.NRZ_I:
+      binarySequence = nonReturnToZeroInverted()
+      break
+    case EncodingScheme.BIPOLAR_AMI:
+      binarySequence = bipolarAMI()
+      break
+    case EncodingScheme.PSEUDOTERNARY:
+      binarySequence = pseudoternary()
+      break
+    case EncodingScheme.MANCHESTER:
+      binarySequence = manchester()
+      break
+    case EncodingScheme.DIFFERENTIAL_MANCHESTER:
+      binarySequence = differentialManchester()
+      break
+  }
+
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
