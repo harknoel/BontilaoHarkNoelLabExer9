@@ -13,7 +13,6 @@ import { EncodingScheme } from "@/types/encodingScheme";
 const Scheme = () => {
   const binarySequence = "01001110";
 
-  // Helper to determine if a transition occurs between bits
   const hasTransition = (index: number) => {
     if (index === 0) return false;
     return binarySequence[index] !== binarySequence[index - 1];
@@ -27,36 +26,48 @@ const Scheme = () => {
             {/* Top row */}
             <TableRow>
               {[...binarySequence].map((bit, index) => (
-                <TableCell
-                  key={`top-${index}`}
-                  className={`w-24 h-16 border border-gray-300 relative
+                <>
+                  <TableCell
+                    key={`top-${index}`}
+                    className={`w-24 h-16 border border-gray-300 relative
                   ${bit === "1" ? "border-t-4 border-t-red-500" : ""}
-                  ${
-                    hasTransition(index) == true
-                      ? "border-l-4 border-l-red-500"
-                      : ""
-                  }`}
-                ></TableCell>
+                  ${hasTransition(index) == true ? "border-l-4 border-l-red-500" : ""}  `}
+                  ></TableCell>
+                  <TableCell
+                    key={`top-${index}`}
+                    className={`w-24 h-16 border border-gray-300 relative
+                  ${bit === "1" ? "border-t-4 border-t-red-500" : ""} `}
+                  ></TableCell>
+                </>
               ))}
             </TableRow>
 
             {/* Bottom row */}
             <TableRow>
               {[...binarySequence].map((bit, index) => (
-                <TableCell
-                  key={`bottom-${index}`}
-                  className={`w-24 h-16 border border-gray-300 relative
+                <>
+                  <TableCell
+                    key={`bottom-${index}`}
+                    className={`w-24 h-16 border border-gray-300 relative
                   ${bit === "0" ? "border-b-4 border-b-red-500" : ""}
                   ${
                     hasTransition(index) == true
                       ? "border-l-4 border-l-red-500"
                       : ""
                   }`}
-                >
-                  <div className="absolute bottom-2 left-0 right-0 text-center">
-                    {bit}
-                  </div>
-                </TableCell>
+                  >
+                    <div className="absolute bottom-2 left-0 right-0 text-center">
+                      {bit}
+                    </div>
+                  </TableCell>
+                  <TableCell
+                    key={`bottom-${index}`}
+                    className={`w-24 h-16 border border-gray-300 relative
+                  ${bit === "0" ? "border-b-4 border-b-red-500" : ""}
+                  `}
+                  >
+                  </TableCell>
+                </>
               ))}
             </TableRow>
           </TableBody>
@@ -70,12 +81,26 @@ const Scheme = () => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Encoding techniques</SelectLabel>
-              <SelectItem value={EncodingScheme.NRZ_L.toString()}>NRZ - L</SelectItem>
-              <SelectItem value={EncodingScheme.NRZ_I.toString()}>NRZ - I</SelectItem>
-              <SelectItem value={EncodingScheme.BIPOLAR_AMI.toString()}>Bipolar - AMI</SelectItem>
-              <SelectItem value={EncodingScheme.PSEUDOTERNARY.toString()}>Pseudoternary</SelectItem>
-              <SelectItem value={EncodingScheme.MANCHESTER.toString()}>Manchester</SelectItem>
-              <SelectItem value={EncodingScheme.DIFFERENTIAL_MANCHESTER.toString()}>Differential Manchester</SelectItem>
+              <SelectItem value={EncodingScheme.NRZ_L.toString()}>
+                NRZ - L
+              </SelectItem>
+              <SelectItem value={EncodingScheme.NRZ_I.toString()}>
+                NRZ - I
+              </SelectItem>
+              <SelectItem value={EncodingScheme.BIPOLAR_AMI.toString()}>
+                Bipolar - AMI
+              </SelectItem>
+              <SelectItem value={EncodingScheme.PSEUDOTERNARY.toString()}>
+                Pseudoternary
+              </SelectItem>
+              <SelectItem value={EncodingScheme.MANCHESTER.toString()}>
+                Manchester
+              </SelectItem>
+              <SelectItem
+                value={EncodingScheme.DIFFERENTIAL_MANCHESTER.toString()}
+              >
+                Differential Manchester
+              </SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
