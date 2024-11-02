@@ -1,4 +1,14 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { EncodingScheme } from "@/types/encodingScheme";
 
 const Scheme = () => {
   const binarySequence = "01001110";
@@ -10,7 +20,7 @@ const Scheme = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="max-w-4xl">
         <Table className="table-fixed border-collapse">
           <TableBody>
@@ -51,6 +61,24 @@ const Scheme = () => {
             </TableRow>
           </TableBody>
         </Table>
+      </div>
+      <div className="p-10">
+        <Select>
+          <SelectTrigger className="w-[230px]">
+            <SelectValue placeholder="Select an encoding technique" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Encoding techniques</SelectLabel>
+              <SelectItem value={EncodingScheme.NRZ_L.toString()}>NRZ - L</SelectItem>
+              <SelectItem value={EncodingScheme.NRZ_I.toString()}>NRZ - I</SelectItem>
+              <SelectItem value={EncodingScheme.BIPOLAR_AMI.toString()}>Bipolar - AMI</SelectItem>
+              <SelectItem value={EncodingScheme.PSEUDOTERNARY.toString()}>Pseudoternary</SelectItem>
+              <SelectItem value={EncodingScheme.MANCHESTER.toString()}>Manchester</SelectItem>
+              <SelectItem value={EncodingScheme.DIFFERENTIAL_MANCHESTER.toString()}>Differential Manchester</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

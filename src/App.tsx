@@ -1,9 +1,9 @@
-import Home from "./pages/Scheme"
+import Scheme from "./pages/Scheme"
 
 function App() {
   return (
     <>
-      <Home></Home>
+      <Scheme></Scheme>
     </>
   )
 }
