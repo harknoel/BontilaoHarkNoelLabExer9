@@ -109,7 +109,8 @@ const Scheme = () => {
     return digitalSignal;
   }
 
-  function differentialManchester(initial: string) {
+  function differentialManchester() {
+    const initial = SignalLevel.HIGH.toString()
     let status = initial
     const digitalSignal = []
 
