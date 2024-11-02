@@ -53,14 +53,6 @@ const Scheme = () => {
     let status = SignalLevel.LOW;
     const digitalSignal = [];
 
-    // if 0101001 no transition
-    //    0000000
-    //   [0110001]
-    // if 01 has transition
-
-    // if 0101001001 no transition
-    //   [0110001110]
-
     for (let i = 0; i < binarySequence.length; i++) {
       // there is a transition
       if (binarySequence[i] === SignalLevel.HIGH.toString()) {
@@ -79,8 +71,29 @@ const Scheme = () => {
     return digitalSignal;
   }
 
+  function pseudoternary() {
+    let status = SignalLevel.LOW;
+    const digitalSignal = [];
+
+    for (let i = 0; i < binarySequence.length; i++) {
+      // there is a transition
+      if (binarySequence[i] === SignalLevel.LOW.toString()) {
+        if (status === SignalLevel.LOW) {
+          digitalSignal.push(SignalLevel.HIGH.toString());
+          status = SignalLevel.HIGH;
+        } else if (status === SignalLevel.HIGH) {
+          digitalSignal.push(SignalLevel.LOW.toString());
+          status = SignalLevel.LOW;
+        }
+      } else {
+        digitalSignal.push(SignalLevel.ZERO.toString());
+      }
+    }
+
+    return digitalSignal;
+  }
   useEffect(() => {
-    const test = bipolarAMI();
+    const test = pseudoternary();
     console.log(test);
   }, []);
 
