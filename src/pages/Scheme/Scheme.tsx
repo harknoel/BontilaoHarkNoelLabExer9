@@ -97,12 +97,18 @@ const Scheme = () => {
     const digitalSignal = [];
 
     for (let i = 0; i < binarySequence.length; i++) {
-      if(binarySequence[i] === "0") {
-        digitalSignal.push([SignalLevel.HIGH.toString(), SignalLevel.LOW.toString()])
+      if (binarySequence[i] === "0") {
+        digitalSignal.push([
+          SignalLevel.HIGH.toString(),
+          SignalLevel.LOW.toString(),
+        ]);
       }
 
-      if(binarySequence[i] === "1") {
-        digitalSignal.push([SignalLevel.LOW.toString(), SignalLevel.HIGH.toString()])
+      if (binarySequence[i] === "1") {
+        digitalSignal.push([
+          SignalLevel.LOW.toString(),
+          SignalLevel.HIGH.toString(),
+        ]);
       }
     }
 
@@ -110,62 +116,67 @@ const Scheme = () => {
   }
 
   function differentialManchester() {
-    const initial = SignalLevel.HIGH.toString()
-    let status = initial
-    const digitalSignal = []
+    const initial = SignalLevel.HIGH.toString();
+    let status = initial;
+    const digitalSignal = [];
 
-    for(let i = 0; i < binarySequence.length; i++) {
-      if(binarySequence[i] === SignalLevel.LOW.toString()) {
-        if(status === SignalLevel.HIGH.toString()) {
-          digitalSignal.push([SignalLevel.LOW.toString(), SignalLevel.HIGH.toString()])          
-          status = SignalLevel.HIGH.toString()
-        } else if(status === SignalLevel.LOW.toString()) {
-          digitalSignal.push([SignalLevel.HIGH.toString(), SignalLevel.LOW.toString()])
-          status = SignalLevel.LOW.toString()
+    for (let i = 0; i < binarySequence.length; i++) {
+      if (binarySequence[i] === SignalLevel.LOW.toString()) {
+        if (status === SignalLevel.HIGH.toString()) {
+          digitalSignal.push([
+            SignalLevel.LOW.toString(),
+            SignalLevel.HIGH.toString(),
+          ]);
+          status = SignalLevel.HIGH.toString();
+        } else if (status === SignalLevel.LOW.toString()) {
+          digitalSignal.push([
+            SignalLevel.HIGH.toString(),
+            SignalLevel.LOW.toString(),
+          ]);
+          status = SignalLevel.LOW.toString();
         }
       } else {
-        if(status === SignalLevel.LOW.toString()) {
-          digitalSignal.push([SignalLevel.LOW.toString(), SignalLevel.HIGH.toString()])
-          status = SignalLevel.HIGH.toString()
-        } else if(status === SignalLevel.HIGH.toString()) {
-          digitalSignal.push([SignalLevel.HIGH.toString(), SignalLevel.LOW.toString()])
-          status = SignalLevel.LOW.toString()
+        if (status === SignalLevel.LOW.toString()) {
+          digitalSignal.push([
+            SignalLevel.LOW.toString(),
+            SignalLevel.HIGH.toString(),
+          ]);
+          status = SignalLevel.HIGH.toString();
+        } else if (status === SignalLevel.HIGH.toString()) {
+          digitalSignal.push([
+            SignalLevel.HIGH.toString(),
+            SignalLevel.LOW.toString(),
+          ]);
+          status = SignalLevel.LOW.toString();
         }
       }
     }
 
-    return digitalSignal.join("")
+    return digitalSignal.join("");
   }
 
   const hasTransition = (index: number) => {
     if (index === 0) return false;
-
-    switch (selectedEncoding) {
-      // case EncodingScheme.NRZ_L:
-      //   return binarySequence[index] !== binarySequence[index - 1];
-      default:
-        return false;
-    }
+    return binarySequence[index] !== binarySequence[index - 1];
   };
 
-  switch(selectedEncoding) {
+  switch (selectedEncoding) {
     case EncodingScheme.NRZ_I:
-      binarySequence = nonReturnToZeroInverted()
-      break
+      binarySequence = nonReturnToZeroInverted();
+      break;
     case EncodingScheme.BIPOLAR_AMI:
-      binarySequence = bipolarAMI()
-      break
+      binarySequence = bipolarAMI();
+      break;
     case EncodingScheme.PSEUDOTERNARY:
-      binarySequence = pseudoternary()
-      break
+      binarySequence = pseudoternary();
+      break;
     case EncodingScheme.MANCHESTER:
-      binarySequence = manchester()
-      break
+      binarySequence = manchester();
+      break;
     case EncodingScheme.DIFFERENTIAL_MANCHESTER:
-      binarySequence = differentialManchester()
-      break
+      binarySequence = differentialManchester();
+      break;
   }
-
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
@@ -219,7 +230,13 @@ const Scheme = () => {
                     hasTransition(index) === true
                       ? "border-l-4 border-l-red-500"
                       : ""
-                  }`}
+                  }
+                  ${
+                    bit === SignalLevel.ZERO.toString()
+                      ? "border-t-4 border-t-red-500"
+                      : ""
+                  }
+                  `}
                   >
                     <div className="absolute bottom-2 left-0 right-0 text-center">
                       {bit}
@@ -231,6 +248,11 @@ const Scheme = () => {
                   ${
                     bit === SignalLevel.LOW.toString()
                       ? "border-b-4 border-b-red-500"
+                      : ""
+                  }
+                  ${
+                    bit === SignalLevel.ZERO.toString()
+                      ? "border-t-4 border-t-red-500"
                       : ""
                   }
                   `}
