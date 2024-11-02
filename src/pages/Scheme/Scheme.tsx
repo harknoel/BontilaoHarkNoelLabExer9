@@ -92,8 +92,25 @@ const Scheme = () => {
 
     return digitalSignal;
   }
+
+  function manchester() {
+    const digitalSignal = [];
+
+    for (let i = 0; i < binarySequence.length; i++) {
+      if(binarySequence[i] === "0") {
+        digitalSignal.push([SignalLevel.HIGH.toString(), SignalLevel.LOW.toString()])
+      }
+
+      if(binarySequence[i] === "1") {
+        digitalSignal.push([SignalLevel.LOW.toString(), SignalLevel.HIGH.toString()])
+      }
+    }
+
+    return digitalSignal;
+  }
+
   useEffect(() => {
-    const test = pseudoternary();
+    const test = manchester();
     console.log(test);
   }, []);
 
