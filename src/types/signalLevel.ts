@@ -1,4 +1,4 @@
-enum SignalLevel {
+export enum SignalLevel {
     LOW,
     HIGH,
 }

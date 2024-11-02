@@ -9,13 +9,65 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { EncodingScheme } from "@/types/encodingScheme";
+import { useEffect, useState } from "react";
+import { SignalLevel } from "@/types/signalLevel";
 
 const Scheme = () => {
-  const binarySequence = "01001110";
+  const [selectedEncoding, setSelectedEncoding] = useState<
+    EncodingScheme | undefined
+  >();
+
+  const binarySequence = "0101001001";
+
+  function nonReturnToZeroInverted() {
+    let status = SignalLevel.LOW;
+    const digitalSignal = [];
+
+    // if 0101001 no transition
+    //    0000000
+    //   [0110001]
+    // if 01 has transition
+
+    // if 0101001001 no transition
+    //   [0110001110]
+
+    for (let i = 0; i < binarySequence.length; i++) {
+      // there is a transition
+      if (binarySequence[i] === "1") {
+        if (status === SignalLevel.LOW) {
+          digitalSignal.push("1");
+          status = SignalLevel.HIGH;
+        } else if (status === SignalLevel.HIGH) {
+          digitalSignal.push("0");
+          status = SignalLevel.LOW;
+        }
+      } else {
+        digitalSignal.push(status.toString());
+      }
+    }
+
+    return digitalSignal;
+  }
+
+  useEffect(() => {
+    const test = nonReturnToZeroInverted();
+    console.log(test);
+  }, []);
 
   const hasTransition = (index: number) => {
     if (index === 0) return false;
-    return binarySequence[index] !== binarySequence[index - 1];
+
+    switch (selectedEncoding) {
+      case EncodingScheme.NRZ_L:
+        return binarySequence[index] !== binarySequence[index - 1];
+      case EncodingScheme.NRZ_I:
+        return (
+          binarySequence[index] !== binarySequence[index - 1] &&
+          binarySequence[index] === "1"
+        );
+      default:
+        return false;
+    }
   };
 
   return (
@@ -30,13 +82,25 @@ const Scheme = () => {
                   <TableCell
                     key={`top-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
-                  ${bit === "1" ? "border-t-4 border-t-red-500" : ""}
-                  ${hasTransition(index) == true ? "border-l-4 border-l-red-500" : ""}  `}
+                  ${
+                    bit === SignalLevel.HIGH.toString()
+                      ? "border-t-4 border-t-red-500"
+                      : ""
+                  }
+                  ${
+                    hasTransition(index) === true
+                      ? "border-l-4 border-l-red-500"
+                      : ""
+                  }  `}
                   ></TableCell>
                   <TableCell
                     key={`top-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
-                  ${bit === "1" ? "border-t-4 border-t-red-500" : ""} `}
+                  ${
+                    bit === SignalLevel.HIGH.toString()
+                      ? "border-t-4 border-t-red-500"
+                      : ""
+                  } `}
                   ></TableCell>
                 </>
               ))}
@@ -49,9 +113,13 @@ const Scheme = () => {
                   <TableCell
                     key={`bottom-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
-                  ${bit === "0" ? "border-b-4 border-b-red-500" : ""}
                   ${
-                    hasTransition(index) == true
+                    bit === SignalLevel.LOW.toString()
+                      ? "border-b-4 border-b-red-500"
+                      : ""
+                  }
+                  ${
+                    hasTransition(index) === true
                       ? "border-l-4 border-l-red-500"
                       : ""
                   }`}
@@ -63,10 +131,13 @@ const Scheme = () => {
                   <TableCell
                     key={`bottom-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
-                  ${bit === "0" ? "border-b-4 border-b-red-500" : ""}
+                  ${
+                    bit === SignalLevel.LOW.toString()
+                      ? "border-b-4 border-b-red-500"
+                      : ""
+                  }
                   `}
-                  >
-                  </TableCell>
+                  ></TableCell>
                 </>
               ))}
             </TableRow>
@@ -74,7 +145,12 @@ const Scheme = () => {
         </Table>
       </div>
       <div className="p-10">
-        <Select>
+        <Select
+          value={selectedEncoding?.toString()}
+          onValueChange={(value) =>
+            setSelectedEncoding(parseInt(value) as EncodingScheme)
+          }
+        >
           <SelectTrigger className="w-[230px]">
             <SelectValue placeholder="Select an encoding technique" />
           </SelectTrigger>
