@@ -1,12 +1,14 @@
 import { EncodingScheme } from "@/types/encodingScheme";
 import { SignalLevel } from "@/types/signalLevel";
 
-class LineCoding {
+export class LineCoding {
+  private _scheme: EncodingScheme
   private _state: SignalLevel;
   private _input: number[];
   private _output: number[][] = [];
 
-  constructor(state: SignalLevel, input: number[]) {
+  constructor(scheme: EncodingScheme, state: SignalLevel, input: number[]) {
+    this._scheme = scheme
     this._state = state;
     this._input = input;
   }
@@ -28,22 +30,18 @@ class LineCoding {
   }
 
   bipolarAMI(bit: number) {
-    if (bit === SignalLevel.HIGH) 
-        bit = this.toggleSignal(bit);
-    if (bit === SignalLevel.LOW) 
-        bit = SignalLevel.ZERO;
+    if (bit === SignalLevel.HIGH) bit = this.toggleSignal(bit);
+    if (bit === SignalLevel.LOW) bit = SignalLevel.ZERO;
     return bit;
   }
 
-  convert(scheme: EncodingScheme) {
-    let func: ((bit: number) => number) | undefined;
-
-    switch (scheme) {
+  static convert(scheme: string) {
+    switch(scheme) {
       case EncodingScheme.NRZ_I:
-        func = () => this.nonReturnToZeroInverted(this._state);
-        break;
+        console.log("Hello world")
+        break
       default:
-        break;
+        break
     }
   }
 
