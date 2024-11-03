@@ -1,15 +1,6 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { EncodingScheme } from "@/types/encodingScheme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SignalLevel } from "@/types/signalLevel";
 
 const Scheme = () => {
@@ -17,7 +8,8 @@ const Scheme = () => {
     EncodingScheme | undefined
   >();
 
-  let binarySequence = "01001110";
+  let binarySequence1 = "01001110";
+  let binarySequence = Array.from(binarySequence, Number);
 
   function nonReturnToZeroInverted() {
     let status = SignalLevel.LOW;
@@ -33,16 +25,16 @@ const Scheme = () => {
 
     for (let i = 0; i < binarySequence.length; i++) {
       // there is a transition
-      if (binarySequence[i] === SignalLevel.HIGH.toString()) {
+      if (binarySequence[i] === SignalLevel.HIGH) {
         if (status === SignalLevel.LOW) {
-          digitalSignal.push(SignalLevel.HIGH.toString());
+          digitalSignal.push(SignalLevel.HIGH);
           status = SignalLevel.HIGH;
         } else if (status === SignalLevel.HIGH) {
-          digitalSignal.push(SignalLevel.LOW.toString());
+          digitalSignal.push(SignalLevel.LOW);
           status = SignalLevel.LOW;
         }
       } else {
-        digitalSignal.push(status.toString());
+        digitalSignal.push(status);
       }
     }
 
@@ -55,16 +47,16 @@ const Scheme = () => {
 
     for (let i = 0; i < binarySequence.length; i++) {
       // there is a transition
-      if (binarySequence[i] === SignalLevel.HIGH.toString()) {
+      if (binarySequence[i] === SignalLevel.HIGH) {
         if (status === SignalLevel.LOW) {
-          digitalSignal.push(SignalLevel.HIGH.toString());
+          digitalSignal.push(SignalLevel.HIGH);
           status = SignalLevel.HIGH;
         } else if (status === SignalLevel.HIGH) {
-          digitalSignal.push(SignalLevel.LOW.toString());
+          digitalSignal.push(SignalLevel.LOW);
           status = SignalLevel.LOW;
         }
       } else {
-        digitalSignal.push(SignalLevel.ZERO.toString());
+        digitalSignal.push(SignalLevel.ZERO);
       }
     }
 
@@ -77,16 +69,16 @@ const Scheme = () => {
 
     for (let i = 0; i < binarySequence.length; i++) {
       // there is a transition
-      if (binarySequence[i] === SignalLevel.LOW.toString()) {
+      if (binarySequence[i] === SignalLevel.LOW) {
         if (status === SignalLevel.LOW) {
-          digitalSignal.push(SignalLevel.HIGH.toString());
+          digitalSignal.push(SignalLevel.HIGH);
           status = SignalLevel.HIGH;
         } else if (status === SignalLevel.HIGH) {
-          digitalSignal.push(SignalLevel.LOW.toString());
+          digitalSignal.push(SignalLevel.LOW);
           status = SignalLevel.LOW;
         }
       } else {
-        digitalSignal.push(SignalLevel.ZERO.toString());
+        digitalSignal.push(SignalLevel.ZERO);
       }
     }
 
@@ -99,15 +91,15 @@ const Scheme = () => {
     for (let i = 0; i < binarySequence.length; i++) {
       if (binarySequence[i] === "0") {
         digitalSignal.push([
-          SignalLevel.HIGH.toString(),
-          SignalLevel.LOW.toString(),
+          SignalLevel.HIGH,
+          SignalLevel.LOW,
         ]);
       }
 
       if (binarySequence[i] === "1") {
         digitalSignal.push([
-          SignalLevel.LOW.toString(),
-          SignalLevel.HIGH.toString(),
+          SignalLevel.LOW,
+          SignalLevel.HIGH,
         ]);
       }
     }
@@ -116,42 +108,44 @@ const Scheme = () => {
   }
 
   function differentialManchester() {
-    const initial = SignalLevel.HIGH.toString();
+    const initial = SignalLevel.HIGH;
     let status = initial;
     const digitalSignal = [];
 
     for (let i = 0; i < binarySequence.length; i++) {
-      if (binarySequence[i] === SignalLevel.LOW.toString()) {
-        if (status === SignalLevel.HIGH.toString()) {
+      if (binarySequence[i] === SignalLevel.LOW) {
+        if (status === SignalLevel.HIGH) {
           digitalSignal.push([
-            SignalLevel.LOW.toString(),
-            SignalLevel.HIGH.toString(),
+            SignalLevel.LOW,
+            SignalLevel.HIGH,
           ]);
-          status = SignalLevel.HIGH.toString();
-        } else if (status === SignalLevel.LOW.toString()) {
+          status = SignalLevel.HIGH;
+        } else if (status === SignalLevel.LOW) {
           digitalSignal.push([
-            SignalLevel.HIGH.toString(),
-            SignalLevel.LOW.toString(),
+            SignalLevel.HIGH,
+            SignalLevel.LOW,
           ]);
-          status = SignalLevel.LOW.toString();
+          status = SignalLevel.LOW;
         }
       } else {
-        if (status === SignalLevel.LOW.toString()) {
+        if (status === SignalLevel.LOW) {
           digitalSignal.push([
-            SignalLevel.LOW.toString(),
-            SignalLevel.HIGH.toString(),
+            SignalLevel.LOW,
+            SignalLevel.HIGH,
           ]);
-          status = SignalLevel.HIGH.toString();
-        } else if (status === SignalLevel.HIGH.toString()) {
+          status = SignalLevel.HIGH;
+        } else if (status === SignalLevel.HIGH) {
           digitalSignal.push([
-            SignalLevel.HIGH.toString(),
-            SignalLevel.LOW.toString(),
+            SignalLevel.HIGH,
+            SignalLevel.LOW,
           ]);
-          status = SignalLevel.LOW.toString();
+          status = SignalLevel.LOW;
         }
       }
     }
 
+    console.log(digitalSignal);
+    console.log(digitalSignal.join(""));
     return digitalSignal.join("");
   }
 
@@ -191,7 +185,7 @@ const Scheme = () => {
                     key={`top-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
                   ${
-                    bit === SignalLevel.HIGH.toString()
+                    bit === SignalLevel.HIGH
                       ? "border-t-4 border-t-red-500"
                       : ""
                   }
@@ -205,7 +199,7 @@ const Scheme = () => {
                     key={`top-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
                   ${
-                    bit === SignalLevel.HIGH.toString()
+                    bit === SignalLevel.HIGH
                       ? "border-t-4 border-t-red-500"
                       : ""
                   } `}
@@ -222,7 +216,7 @@ const Scheme = () => {
                     key={`bottom-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
                   ${
-                    bit === SignalLevel.LOW.toString()
+                    bit === SignalLevel.LOW
                       ? "border-b-4 border-b-red-500"
                       : ""
                   }
@@ -232,7 +226,7 @@ const Scheme = () => {
                       : ""
                   }
                   ${
-                    bit === SignalLevel.ZERO.toString()
+                    bit === SignalLevel.ZERO
                       ? "border-t-4 border-t-red-500"
                       : ""
                   }
@@ -246,12 +240,12 @@ const Scheme = () => {
                     key={`bottom-${index}`}
                     className={`w-24 h-16 border border-gray-300 relative
                   ${
-                    bit === SignalLevel.LOW.toString()
+                    bit === SignalLevel.LOW
                       ? "border-b-4 border-b-red-500"
                       : ""
                   }
                   ${
-                    bit === SignalLevel.ZERO.toString()
+                    bit === SignalLevel.ZERO
                       ? "border-t-4 border-t-red-500"
                       : ""
                   }
@@ -264,41 +258,22 @@ const Scheme = () => {
         </Table>
       </div>
       <div className="p-10">
-        <Select
-          value={selectedEncoding?.toString()}
-          onValueChange={(value) =>
-            setSelectedEncoding(parseInt(value) as EncodingScheme)
-          }
-        >
-          <SelectTrigger className="w-[230px]">
-            <SelectValue placeholder="Select an encoding technique" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Encoding techniques</SelectLabel>
-              <SelectItem value={EncodingScheme.NRZ_L.toString()}>
-                NRZ - L
-              </SelectItem>
-              <SelectItem value={EncodingScheme.NRZ_I.toString()}>
-                NRZ - I
-              </SelectItem>
-              <SelectItem value={EncodingScheme.BIPOLAR_AMI.toString()}>
-                Bipolar - AMI
-              </SelectItem>
-              <SelectItem value={EncodingScheme.PSEUDOTERNARY.toString()}>
-                Pseudoternary
-              </SelectItem>
-              <SelectItem value={EncodingScheme.MANCHESTER.toString()}>
-                Manchester
-              </SelectItem>
-              <SelectItem
-                value={EncodingScheme.DIFFERENTIAL_MANCHESTER.toString()}
-              >
-                Differential Manchester
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <select>
+          <option value={EncodingScheme.NRZ_L}>NRZ - L</option>
+          <option value={EncodingScheme.NRZ_I}>NRZ - I</option>
+          <option value={EncodingScheme.BIPOLAR_AMI}>
+            Bipolar - AMI
+          </option>
+          <option value={EncodingScheme.PSEUDOTERNARY}>
+            Pseudoternary
+          </option>
+          <option value={EncodingScheme.MANCHESTER}>
+            Manchester
+          </option>
+          <option value={EncodingScheme.DIFFERENTIAL_MANCHESTER}>
+            Differential Manchester
+          </option>
+        </select>
       </div>
     </div>
   );
