@@ -21,6 +21,7 @@ const Scheme = () => {
             <TableRow>
               {[...input].map((bit, index) => (
                 <TableCell
+                  colSpan={2}
                   key={`top-${index}`}
                   className="w-24 h-16 border border-gray-300 relative text-center"
                 >
