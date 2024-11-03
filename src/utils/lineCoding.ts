@@ -2,47 +2,35 @@ import { EncodingScheme } from "@/types/encodingScheme";
 import { SignalLevel } from "@/types/signalLevel";
 
 export class LineCoding {
-  private _scheme: EncodingScheme
-  private _state: SignalLevel;
-  private _input: number[];
-  private _output: number[][] = [];
+  static _state: SignalLevel = SignalLevel.LOW;
 
-  constructor(scheme: EncodingScheme, state: SignalLevel, input: number[]) {
-    this._scheme = scheme
-    this._state = state;
-    this._input = input;
+  static toggleSignal(bit: number): SignalLevel {
+    return bit === SignalLevel.HIGH ? SignalLevel.LOW : SignalLevel.HIGH;
   }
 
-  public set output(newOutput: number[][]) {
-    this._output = newOutput;
-  }
-
-  toggleSignal(currentState: SignalLevel): SignalLevel {
-    const newState =
-      currentState === SignalLevel.HIGH ? SignalLevel.LOW : SignalLevel.HIGH;
-    this._state = newState;
-    return newState;
-  }
-
-  nonReturnToZeroInverted(bit: number): SignalLevel {
-    if (bit === SignalLevel.HIGH) bit = this.toggleSignal(bit);
-    return bit;
-  }
-
-  bipolarAMI(bit: number) {
-    if (bit === SignalLevel.HIGH) bit = this.toggleSignal(bit);
-    if (bit === SignalLevel.LOW) bit = SignalLevel.ZERO;
-    return bit;
-  }
-
-  static convert(scheme: string) {
-    switch(scheme) {
-      case EncodingScheme.NRZ_I:
-        console.log("Hello world")
-        break
-      default:
-        break
+  static nonReturnToZeroInverted(bit: number): SignalLevel {
+    if (bit === SignalLevel.HIGH) {
+      LineCoding._state = LineCoding.toggleSignal(LineCoding._state);
     }
+    return LineCoding._state;
+  }
+
+  // bipolarAMI(bit: number) {
+  //   if (bit === SignalLevel.HIGH) bit = this.toggleSignal(bit);
+  //   if (bit === SignalLevel.LOW) bit = SignalLevel.ZERO;
+  //   return bit;
+  // }
+
+  static convert(scheme: string, input: number[]) {
+    let result: SignalLevel[] = [];
+    switch (scheme) {
+      case EncodingScheme.NRZ_I:
+        result = input.map((bit) => LineCoding.nonReturnToZeroInverted(bit));
+        break;
+      default:
+        break;
+    }
+    return result;
   }
 
   // nonReturnToZeroInverted(binarySequence: number[]) {

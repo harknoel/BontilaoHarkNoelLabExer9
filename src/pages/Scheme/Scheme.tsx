@@ -20,7 +20,10 @@ const Scheme = () => {
 
   useEffect(() => {
     console.log(selectedEncoding);
-    LineCoding.convert(selectedEncoding);
+    let input = [1, 1]
+    const result = LineCoding.convert(selectedEncoding, input);
+    console.log(result)
+
   }, [selectedEncoding]);
 
   return (
