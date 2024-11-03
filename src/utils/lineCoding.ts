@@ -3,6 +3,7 @@ import { SignalLevel } from "@/types/signalLevel";
 
 export class LineCoding {
   static _state: SignalLevel = SignalLevel.LOW;
+  static _prevState: SignalLevel = SignalLevel.HIGH ? SignalLevel.LOW_TO_HIGH : SignalLevel.HIGH_TO_LOW
 
   static toggleSignal(): SignalLevel {
     return LineCoding._state === SignalLevel.HIGH
@@ -11,42 +12,39 @@ export class LineCoding {
   }
 
   static nonReturnToZeroInverted(bit: number): SignalLevel {
-    if (bit === SignalLevel.HIGH) {
+    if (bit === 1) {
       LineCoding._state = LineCoding.toggleSignal();
     }
     return LineCoding._state;
   }
 
   static bipolarAMI(bit: number) {
-    if (bit === SignalLevel.HIGH)
+    if (bit === 1)
       return (LineCoding._state = LineCoding.toggleSignal());
     else return SignalLevel.ZERO;
   }
 
   static pseudoternary(bit: number) {
-    if (bit === SignalLevel.LOW)
+    if (bit === 0)
       return (LineCoding._state = LineCoding.toggleSignal());
     else return SignalLevel.ZERO;
   }
 
   static manchester(bit: number) {
-    if (bit === SignalLevel.HIGH) return SignalLevel.LOW_TO_HIGH;
+    if (bit === 1) return SignalLevel.LOW_TO_HIGH;
     return SignalLevel.HIGH_TO_LOW;
   }
 
   static differentialManchester(bit: number) {
-    const signal =
-      LineCoding._state === SignalLevel.HIGH
-        ? bit === SignalLevel.LOW
-          ? SignalLevel.LOW_TO_HIGH
-          : SignalLevel.HIGH_TO_LOW
-        : bit === SignalLevel.LOW
-        ? SignalLevel.HIGH_TO_LOW
-        : SignalLevel.LOW_TO_HIGH;
-
-    if (bit === SignalLevel.HIGH) LineCoding._state = LineCoding.toggleSignal();
-
-    return signal;
+    if (bit === 1) {
+      if(LineCoding._prevState === SignalLevel.HIGH_TO_LOW) {
+        LineCoding._prevState = SignalLevel.LOW_TO_HIGH
+      }
+      else {
+        LineCoding._prevState = SignalLevel.HIGH_TO_LOW
+      }
+    } 
+    return LineCoding._prevState
   }
 
   static convert(scheme: string, input: number[]) {
