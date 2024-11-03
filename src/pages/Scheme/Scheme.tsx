@@ -1,68 +1,24 @@
-import SelectComponent from "@/components/Select";
 import { useEffect, useState } from "react";
-import { Table, TableCell, TableRow, TableBody } from "@/components/ui/table";
+import SelectComponent from "@/components/Select";
+import TableComponent from "@/components/Table";
 import { LineCoding } from "@/utils/lineCoding";
+import { SignalLevel } from "@/types/signalLevel";
 
 const Scheme = () => {
   let input = [0, 1, 0, 0, 1, 1, 1, 0];
   const [selectedEncoding, setSelectedEncoding] = useState<string>("");
+  const [result, setResult] = useState<SignalLevel[]>([])
 
   useEffect(() => {
-    console.log(selectedEncoding);
-    const result = LineCoding.convert(selectedEncoding, input);
-    console.log(result);
+    const output = LineCoding.convert(selectedEncoding, input);
+    setResult(output)
+    console.log(result)
   }, [selectedEncoding]);
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="max-w-4xl">
-        <Table className="table-fixed border-collapse">
-          <TableBody>
-            <TableRow>
-              {[...input].map((bit, index) => (
-                <TableCell
-                  colSpan={2}
-                  key={`top-${index}`}
-                  className="w-24 h-16 border border-gray-300 relative text-center"
-                >
-                  {bit}
-                </TableCell>
-              ))}
-            </TableRow>
-            <TableRow>
-              {[...input].map((_, index) => (
-                <>
-                  <TableCell
-                    key={`top-${index}`}
-                    className="w-24 h-16 border border-gray-300 relative text-center"
-                  >
-                  </TableCell>
-                  <TableCell
-                    key={`top-${index}`}
-                    className="w-24 h-16 border border-gray-300 relative text-center"
-                  >
-                  </TableCell>
-                </>
-              ))}
-            </TableRow>
-            <TableRow>
-              {[...input].map((_, index) => (
-                <>
-                  <TableCell
-                    key={`top-${index}`}
-                    className="w-24 h-16 border border-gray-300 relative text-center"
-                  >
-                  </TableCell>
-                  <TableCell
-                    key={`top-${index}`}
-                    className="w-24 h-16 border border-gray-300 relative text-center"
-                  >
-                  </TableCell>
-                </>
-              ))}
-            </TableRow>
-          </TableBody>
-        </Table>
+        <TableComponent result={result}></TableComponent>
       </div>
       <div className="p-10">
         <SelectComponent
