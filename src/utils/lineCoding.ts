@@ -30,9 +30,23 @@ export class LineCoding {
   }
 
   static manchester(bit: number) {
-    if (bit === SignalLevel.HIGH)
-      return SignalLevel.LOW_TO_HIGH
-    return SignalLevel.HIGH_TO_LOW
+    if (bit === SignalLevel.HIGH) return SignalLevel.LOW_TO_HIGH;
+    return SignalLevel.HIGH_TO_LOW;
+  }
+
+  static differentialManchester(bit: number) {
+    const signal =
+      LineCoding._state === SignalLevel.HIGH
+        ? bit === SignalLevel.LOW
+          ? SignalLevel.LOW_TO_HIGH
+          : SignalLevel.HIGH_TO_LOW
+        : bit === SignalLevel.LOW
+        ? SignalLevel.HIGH_TO_LOW
+        : SignalLevel.LOW_TO_HIGH;
+
+    if (bit === SignalLevel.HIGH) LineCoding._state = LineCoding.toggleSignal();
+
+    return signal;
   }
 
   static convert(scheme: string, input: number[]) {
@@ -50,7 +64,8 @@ export class LineCoding {
       case EncodingScheme.MANCHESTER:
         result = input.map((bit) => LineCoding.manchester(bit));
         break;
-      default:
+      case EncodingScheme.DIFFERENTIAL_MANCHESTER:
+        result = input.map((bit) => LineCoding.differentialManchester(bit));
         break;
     }
     return result;
@@ -135,21 +150,21 @@ export class LineCoding {
 
   // for (let i = 0; i < binarySequence.length; i++) {
   //     if (binarySequence[i] === SignalLevel.LOW) {
-  //     if (status === SignalLevel.HIGH) {
-  //         digitalSignal.push([SignalLevel.LOW, SignalLevel.HIGH]);
-  //         status = SignalLevel.HIGH;
-  //     } else if (status === SignalLevel.LOW) {
-  //         digitalSignal.push([SignalLevel.HIGH, SignalLevel.LOW]);
-  //         status = SignalLevel.LOW;
-  //     }
+  //       if (status === SignalLevel.HIGH) {
+  //           digitalSignal.push([SignalLevel.LOW, SignalLevel.HIGH]);
+  //           status = SignalLevel.HIGH;
+  //       } else if (status === SignalLevel.LOW) {
+  //           digitalSignal.push([SignalLevel.HIGH, SignalLevel.LOW]);
+  //           status = SignalLevel.LOW;
+  //       }
   //     } else {
-  //     if (status === SignalLevel.LOW) {
-  //         digitalSignal.push([SignalLevel.LOW, SignalLevel.HIGH]);
-  //         status = SignalLevel.HIGH;
-  //     } else if (status === SignalLevel.HIGH) {
-  //         digitalSignal.push([SignalLevel.HIGH, SignalLevel.LOW]);
-  //         status = SignalLevel.LOW;
-  //     }
+  //       if (status === SignalLevel.LOW) {
+  //           digitalSignal.push([SignalLevel.LOW, SignalLevel.HIGH]);
+  //           status = SignalLevel.HIGH;
+  //       } else if (status === SignalLevel.HIGH) {
+  //           digitalSignal.push([SignalLevel.HIGH, SignalLevel.LOW]);
+  //           status = SignalLevel.LOW;
+  //       }
   //     }
   // }
 
