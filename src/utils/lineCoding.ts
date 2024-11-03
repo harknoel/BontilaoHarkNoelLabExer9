@@ -49,6 +49,9 @@ export class LineCoding {
   static convert(scheme: string, input: number[]) {
     let result: SignalLevel[] = [];
     switch (scheme) {
+      case EncodingScheme.NRZ_L:
+        result = input;
+        break;
       case EncodingScheme.NRZ_I:
         result = input.map((bit) => LineCoding.nonReturnToZeroInverted(bit));
         break;

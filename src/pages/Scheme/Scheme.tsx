@@ -29,6 +29,38 @@ const Scheme = () => {
                 </TableCell>
               ))}
             </TableRow>
+            <TableRow>
+              {[...input].map((_, index) => (
+                <>
+                  <TableCell
+                    key={`top-${index}`}
+                    className="w-24 h-16 border border-gray-300 relative text-center"
+                  >
+                  </TableCell>
+                  <TableCell
+                    key={`top-${index}`}
+                    className="w-24 h-16 border border-gray-300 relative text-center"
+                  >
+                  </TableCell>
+                </>
+              ))}
+            </TableRow>
+            <TableRow>
+              {[...input].map((_, index) => (
+                <>
+                  <TableCell
+                    key={`top-${index}`}
+                    className="w-24 h-16 border border-gray-300 relative text-center"
+                  >
+                  </TableCell>
+                  <TableCell
+                    key={`top-${index}`}
+                    className="w-24 h-16 border border-gray-300 relative text-center"
+                  >
+                  </TableCell>
+                </>
+              ))}
+            </TableRow>
           </TableBody>
         </Table>
       </div>
