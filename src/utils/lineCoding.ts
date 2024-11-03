@@ -4,28 +4,32 @@ import { SignalLevel } from "@/types/signalLevel";
 export class LineCoding {
   static _state: SignalLevel = SignalLevel.LOW;
 
-  static toggleSignal(bit: number): SignalLevel {
-    return bit === SignalLevel.HIGH ? SignalLevel.LOW : SignalLevel.HIGH;
+  static toggleSignal(): SignalLevel {
+    return LineCoding._state === SignalLevel.HIGH ? SignalLevel.LOW : SignalLevel.HIGH;
   }
 
   static nonReturnToZeroInverted(bit: number): SignalLevel {
     if (bit === SignalLevel.HIGH) {
-      LineCoding._state = LineCoding.toggleSignal(LineCoding._state);
+      LineCoding._state = LineCoding.toggleSignal();
     }
     return LineCoding._state;
   }
 
-  // bipolarAMI(bit: number) {
-  //   if (bit === SignalLevel.HIGH) bit = this.toggleSignal(bit);
-  //   if (bit === SignalLevel.LOW) bit = SignalLevel.ZERO;
-  //   return bit;
-  // }
+  static bipolarAMI(bit: number) {
+    if (bit === SignalLevel.HIGH) 
+      return LineCoding._state = LineCoding.toggleSignal();
+    else
+      return SignalLevel.ZERO;
+  }
 
   static convert(scheme: string, input: number[]) {
     let result: SignalLevel[] = [];
     switch (scheme) {
       case EncodingScheme.NRZ_I:
         result = input.map((bit) => LineCoding.nonReturnToZeroInverted(bit));
+        break;
+      case EncodingScheme.BIPOLAR_AMI:
+        result = input.map((bit) => LineCoding.bipolarAMI(bit))
         break;
       default:
         break;
