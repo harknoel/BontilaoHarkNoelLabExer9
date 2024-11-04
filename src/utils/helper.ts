@@ -62,6 +62,7 @@ export function transition_color(
       }
       break;
     case EncodingScheme.MANCHESTER:
+    case EncodingScheme.DIFFERENTIAL_MANCHESTER:
       if (!transition(output, index)) {
         return borderBuilder.left().build();
       }

@@ -34,14 +34,14 @@ const TableComponent = ({
                   bit
                 )}
                 ${transition_color(scheme, result, index)}
-                ${scheme === EncodingScheme.MANCHESTER ? (bit === 4 ? "!border-t-4 border-t-red-500 border-r-4 border-r-red-500" : "") : ""}`}
+                ${scheme === EncodingScheme.MANCHESTER || EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 4 ? "!border-t-4 border-t-red-500 border-r-4 border-r-red-500" : "") : ""}`}
               ></TableCell>
               <TableCell
                 className={`w-24 h-16 border border-gray-300 relative ${top_color(
                   scheme,
                   bit
                 )}
-                ${scheme === EncodingScheme.MANCHESTER ? (bit === 3 ? "border-t-4 border-t-red-500 border-l-4 border-l-red-500" : "") : ""}`}
+                ${scheme === EncodingScheme.MANCHESTER || EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 3 ? "border-t-4 border-t-red-500 border-l-4 border-l-red-500" : "") : ""}`}
               ></TableCell>
             </React.Fragment>
           ))}
@@ -55,14 +55,14 @@ const TableComponent = ({
                   bit
                 )}
                 ${transition_color(scheme, result, index)}
-                ${scheme === EncodingScheme.MANCHESTER ? (bit === 3 ? "!border-b-4 border-b-red-500 border-r-4 border-r-red-500" : "") : ""}`}
+                ${scheme === EncodingScheme.MANCHESTER || scheme === EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 3 ? "!border-b-4 border-b-red-500 border-r-4 border-r-red-500" : "") : ""}`}
               ></TableCell>
               <TableCell
                 className={`w-24 h-16 border border-gray-300 relative ${bottom_color(
                   scheme,
                   bit
                 )}
-                ${scheme === EncodingScheme.MANCHESTER ? (bit === 4 ? "!border-b-4 border-b-red-500 border-l-4 border-l-red-500" : "") : ""}`}
+                ${scheme === EncodingScheme.MANCHESTER || scheme === EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 4 ? "!border-b-4 border-b-red-500 border-l-4 border-l-red-500" : "") : ""}`}
               ></TableCell>
             </React.Fragment>
           ))}
