@@ -17,7 +17,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 const Scheme = () => {
   const [inputString, setInputString] = useState("");
   const [inputArray, setInputArray] = useState<number[]>([
-    0, 1, 0, 0, 1, 1, 1, 0, 1,
+    0, 1, 0, 0, 1, 1, 1, 0,
   ]);
   const [selectedEncoding, setSelectedEncoding] = useState<string>(
     EncodingScheme.NRZ_L
@@ -28,28 +28,20 @@ const Scheme = () => {
   useEffect(() => {
     const output = LineCoding.convert(selectedEncoding, inputArray);
     setResult(output);
-    console.log(inputArray);
   }, [selectedEncoding, inputArray]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-
-    // Only allow 0s and 1s to be typed
     if (value && !/^[01]+$/.test(value)) {
       setError("Please enter only binary digits (0s and 1s)");
       return;
     }
-
     setInputString(value);
     setError("");
-
-    // Allow empty input to revert to default
     if (!value) {
       setInputArray([0, 1, 0, 0, 1, 1, 1, 0, 1]);
       return;
     }
-
-    // Convert string to array of numbers
     const numbers = Array.from(value).map((digit) => parseInt(digit));
     setInputArray(numbers);
   };
