@@ -41,12 +41,12 @@ const TableComponent = ({
                   scheme,
                   bit
                 )}
-                ${scheme === EncodingScheme.MANCHESTER || EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 3 ? "border-t-4 border-t-red-500 border-l-4 border-l-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 2 && result[index + 1] === 1 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && result[index + 1] === 2 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && result[index + 1] === 1 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && result[index + 1] === 0 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && index + 1 === result.length ? "border-r-4 border-r-red-500" : "") : ""}`}
+                ${scheme === EncodingScheme.MANCHESTER || scheme === EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 3 ? "border-t-4 border-t-red-500 border-l-4 border-l-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 2 && result[index + 1] === 1 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && result[index + 1] === 2 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && result[index + 1] === 1 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && result[index + 1] === 0 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && index + 1 === result.length ? "border-r-4 border-r-red-500" : "") : ""}`}
               ></TableCell>
             </React.Fragment>
           ))}
@@ -68,11 +68,11 @@ const TableComponent = ({
                   bit
                 )}
                 ${scheme === EncodingScheme.MANCHESTER || scheme === EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 4 ? "!border-b-4 border-b-red-500 border-l-4 border-l-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 2 && result[index + 1] === 0 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && result[index + 1] === 2 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && result[index + 1] === 1 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && result[index + 1] === 0 ? "border-r-4 border-r-red-500" : "") : ""}
-                ${scheme === EncodingScheme.BIPOLAR_AMI || EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && index + 1 === result.length ? "border-r-4 border-r-red-500" : "") : ""}`}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 2 && result[index + 1] === 0 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && result[index + 1] === 2 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && result[index + 1] === 1 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 1 && result[index + 1] === 0 ? "border-r-4 border-r-red-500" : "") : ""}
+                ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (result[index] === 0 && index + 1 === result.length ? "border-r-4 border-r-red-500" : "") : ""}`}
               ></TableCell>
             </React.Fragment>
           ))}
