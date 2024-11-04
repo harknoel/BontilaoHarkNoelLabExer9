@@ -8,6 +8,8 @@ export function top_color(scheme: string, bit: number): string {
   switch (scheme) {
     case EncodingScheme.NRZ_L:
     case EncodingScheme.NRZ_I:
+    case EncodingScheme.BIPOLAR_AMI:
+    case EncodingScheme.PSEUDOTERNARY:
       if (bit === 1) {
         return borderBuilder.top().build();
       }
@@ -25,8 +27,17 @@ export function bottom_color(scheme: string, bit: number): string {
   switch (scheme) {
     case EncodingScheme.NRZ_L:
     case EncodingScheme.NRZ_I:
-      if (bit === 0) {
+      if (bit === SignalLevel.LOW) {
         return borderBuilder.bottom().build();
+      }
+      break;
+    case EncodingScheme.BIPOLAR_AMI:
+    case EncodingScheme.PSEUDOTERNARY:
+      if (bit === SignalLevel.LOW) {
+        return borderBuilder.bottom().build();
+      }
+      if (bit === SignalLevel.ZERO) {
+        return borderBuilder.top().build();
       }
       break;
     default:
@@ -36,11 +47,19 @@ export function bottom_color(scheme: string, bit: number): string {
   return "";
 }
 
-export function transition_color(output: SignalLevel[], index: number) {
+export function transition_color(
+  scheme: string,
+  output: SignalLevel[],
+  index: number
+) {
   const borderBuilder = new BorderBuilder();
-  console.log(transition(output, index));
-  if (transition(output, index) === true) {
-    return borderBuilder.left().build();
+
+  switch (scheme) {
+    case EncodingScheme.NRZ_L:
+    case EncodingScheme.NRZ_I:
+      if (transition(output, index) === true) {
+        return borderBuilder.left().build();
+      }
   }
 }
 

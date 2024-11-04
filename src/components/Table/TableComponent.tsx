@@ -33,7 +33,7 @@ const TableComponent = ({
                   scheme,
                   bit
                 )}
-                ${transition_color(result, index)}`}
+                ${transition_color(scheme, result, index)}`}
               ></TableCell>
               <TableCell
                 className={`w-24 h-16 border border-gray-300 relative ${top_color(
@@ -52,7 +52,7 @@ const TableComponent = ({
                   scheme,
                   bit
                 )}
-                ${transition_color(result, index)}`}
+                ${transition_color(scheme, result, index)}`}
               ></TableCell>
               <TableCell
                 className={`w-24 h-16 border border-gray-300 relative ${bottom_color(
