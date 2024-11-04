@@ -6,7 +6,7 @@ import { SignalLevel } from "@/types/SignalLevel";
 import { BorderBuilder } from "@/utils/BorderBuilder";
 
 const Scheme = () => {
-  let input = [0, 1, 0, 0, 1, 1, 1, 0];
+  let input = [0, 1, 0, 0, 1, 1, 1, 0, 1];
   const [selectedEncoding, setSelectedEncoding] = useState<string>("");
   const [result, setResult] = useState<SignalLevel[]>([]);
 
