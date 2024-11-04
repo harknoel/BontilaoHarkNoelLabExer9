@@ -21,7 +21,7 @@ const Scheme = () => {
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="max-w-4xl">
-        <TableComponent scheme={selectedEncoding} result={result}></TableComponent>
+        <TableComponent scheme={selectedEncoding} input={input} result={result}></TableComponent>
       </div>
       <div className="p-10">
         <SelectComponent

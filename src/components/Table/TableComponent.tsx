@@ -6,16 +6,18 @@ import React from "react";
 
 const TableComponent = ({
   scheme,
+  input,
   result,
 }: {
   scheme: string;
+  input: number[];
   result: SignalLevel[];
 }) => {
   return (
     <Table className="table-fixed border-collapse">
       <TableBody>
         <TableRow>
-          {[...result].map((bit, index) => (
+          {[...input].map((bit, index) => (
             <TableCell
               colSpan={2}
               key={`head-${index}`}
