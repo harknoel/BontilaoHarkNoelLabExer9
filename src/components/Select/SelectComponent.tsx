@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { EncodingScheme } from "@/types/encodingScheme";
+import { EncodingScheme } from "@/types/EncodingScheme";
 
 const SelectComponent = ({
   selectedEncoding,

@@ -1,5 +1,5 @@
 import { Table, TableCell, TableRow, TableBody } from "@/components/ui/table";
-import { SignalLevel } from "@/types/signalLevel";
+import { SignalLevel } from "@/types/SignalLevel";
 import React from "react";
 
 const TableComponent = ({ result }: { result: SignalLevel[] }) => {
@@ -20,7 +20,7 @@ const TableComponent = ({ result }: { result: SignalLevel[] }) => {
         <TableRow>
           {[...result].map((_, index) => (
             <React.Fragment key={`row1-${index}`}>
-              <TableCell className="w-24 h-16 border border-gray-300 relative text-center"></TableCell>
+              <TableCell className="w-24 h-16 border border-gray-300 relative text-center border-t-4 border-t-red-500"></TableCell>
               <TableCell className="w-24 h-16 border border-gray-300 relative text-center"></TableCell>
             </React.Fragment>
           ))}

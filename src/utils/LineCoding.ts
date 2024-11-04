@@ -1,5 +1,5 @@
-import { EncodingScheme } from "@/types/encodingScheme";
-import { SignalLevel } from "@/types/signalLevel";
+import { EncodingScheme } from "@/types/EncodingScheme";
+import { SignalLevel } from "@/types/SignalLevel";
 
 export class LineCoding {
   static _state: SignalLevel = SignalLevel.LOW;

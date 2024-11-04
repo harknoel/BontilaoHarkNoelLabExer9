@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import SelectComponent from "@/components/Select";
 import TableComponent from "@/components/Table";
-import { LineCoding } from "@/utils/lineCoding";
-import { SignalLevel } from "@/types/signalLevel";
+import { LineCoding } from "@/utils/LineCoding";
+import { SignalLevel } from "@/types/SignalLevel";
 
 const Scheme = () => {
   let input = [0, 1, 0, 0, 1, 1, 1, 0];
   const [selectedEncoding, setSelectedEncoding] = useState<string>("");
-  const [result, setResult] = useState<SignalLevel[]>([])
+  const [result, setResult] = useState<SignalLevel[]>([]);
 
   useEffect(() => {
     const output = LineCoding.convert(selectedEncoding, input);
-    setResult(output)
-    console.log(result)
+    setResult(output);
+    console.log(result);
   }, [selectedEncoding]);
 
   return (
