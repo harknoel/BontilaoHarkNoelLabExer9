@@ -18,7 +18,7 @@ const SelectComponent = ({
 }) => {
   return (
     <Select value={selectedEncoding} onValueChange={setSelectedEncoding}>
-      <SelectTrigger className="w-[240px]">
+      <SelectTrigger>
         <SelectValue placeholder="Select an encoding technique" />
       </SelectTrigger>
       <SelectContent>
