@@ -1,7 +1,7 @@
 import { Table, TableCell, TableRow, TableBody } from "@/components/ui/table";
 import { EncodingScheme } from "@/types/EncodingScheme";
 import { SignalLevel } from "@/types/SignalLevel";
-import { top_color, bottom_color } from "@/utils/helper";
+import { top_color, bottom_color, transition_color } from "@/utils/helper";
 import React from "react";
 
 const TableComponent = ({
@@ -32,7 +32,8 @@ const TableComponent = ({
                 className={`w-24 h-16 border border-gray-300 relative ${top_color(
                   scheme,
                   bit
-                )}`}
+                )}
+                ${transition_color(result, index)}`}
               ></TableCell>
               <TableCell
                 className={`w-24 h-16 border border-gray-300 relative ${top_color(
@@ -50,13 +51,14 @@ const TableComponent = ({
                 className={`w-24 h-16 border border-gray-300 relative ${bottom_color(
                   scheme,
                   bit
-                )}`}
+                )}
+                ${transition_color(result, index)}`}
               ></TableCell>
               <TableCell
                 className={`w-24 h-16 border border-gray-300 relative ${bottom_color(
                   scheme,
                   bit
-                )}`}
+                )} `}
               ></TableCell>
             </React.Fragment>
           ))}
