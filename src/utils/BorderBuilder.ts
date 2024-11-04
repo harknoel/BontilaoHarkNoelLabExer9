@@ -1,14 +1,8 @@
-class BorderBuilder {
+export class BorderBuilder {
   private _properties: Set<string> = new Set();
   private _borderColor: string = "red";
   private _borderTone: number = 500;
   private _borderWidth: number = 4;
-
-  constructor(borderColor: string, borderTone: number, borderWidth: number) {
-    this._borderColor = borderColor;
-    this._borderTone = borderTone;
-    this._borderWidth = borderWidth;
-  }
 
   addClass(property: string): BorderBuilder {
     this._properties.add(property);

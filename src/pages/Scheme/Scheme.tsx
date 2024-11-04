@@ -3,6 +3,7 @@ import SelectComponent from "@/components/Select";
 import TableComponent from "@/components/Table";
 import { LineCoding } from "@/utils/LineCoding";
 import { SignalLevel } from "@/types/SignalLevel";
+import { BorderBuilder } from "@/utils/BorderBuilder";
 
 const Scheme = () => {
   let input = [0, 1, 0, 0, 1, 1, 1, 0];
@@ -10,9 +11,11 @@ const Scheme = () => {
   const [result, setResult] = useState<SignalLevel[]>([]);
 
   useEffect(() => {
-    const output = LineCoding.convert(selectedEncoding, input);
-    setResult(output);
-    console.log(result);
+    // const output = LineCoding.convert(selectedEncoding, input);
+    // setResult(output);
+    // console.log(result);
+    // const test = new BorderBuilder().up().left().build();
+    // console.log(test);
   }, [selectedEncoding]);
 
   return (
