@@ -57,9 +57,15 @@ export function transition_color(
   switch (scheme) {
     case EncodingScheme.NRZ_L:
     case EncodingScheme.NRZ_I:
-      if (transition(output, index) === true) {
+      if (transition(output, index)) {
         return borderBuilder.left().build();
       }
+      break;
+    case EncodingScheme.MANCHESTER:
+      if (!transition(output, index)) {
+        return borderBuilder.left().build();
+      }
+      break;
   }
 }
 
