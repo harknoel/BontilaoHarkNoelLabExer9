@@ -11,8 +11,8 @@ const Scheme = () => {
   const [result, setResult] = useState<SignalLevel[]>([]);
 
   useEffect(() => {
-    // const output = LineCoding.convert(selectedEncoding, input);
-    // setResult(output);
+    const output = LineCoding.convert(selectedEncoding, input);
+    setResult(output);
     // console.log(result);
     // const test = new BorderBuilder().up().left().build();
     // console.log(test);
@@ -21,7 +21,7 @@ const Scheme = () => {
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="max-w-4xl">
-        <TableComponent result={result}></TableComponent>
+        <TableComponent scheme={selectedEncoding} result={result}></TableComponent>
       </div>
       <div className="p-10">
         <SelectComponent

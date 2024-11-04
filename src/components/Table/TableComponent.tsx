@@ -1,8 +1,16 @@
 import { Table, TableCell, TableRow, TableBody } from "@/components/ui/table";
+import { EncodingScheme } from "@/types/EncodingScheme";
 import { SignalLevel } from "@/types/SignalLevel";
+import { top_color, bottom_color } from "@/utils/helper";
 import React from "react";
 
-const TableComponent = ({ result }: { result: SignalLevel[] }) => {
+const TableComponent = ({
+  scheme,
+  result,
+}: {
+  scheme: string;
+  result: SignalLevel[];
+}) => {
   return (
     <Table className="table-fixed border-collapse">
       <TableBody>
@@ -18,18 +26,38 @@ const TableComponent = ({ result }: { result: SignalLevel[] }) => {
           ))}
         </TableRow>
         <TableRow>
-          {[...result].map((_, index) => (
+          {[...result].map((bit, index) => (
             <React.Fragment key={`row1-${index}`}>
-              <TableCell className="w-24 h-16 border border-gray-300 relative text-center border-t-4 border-t-red-500"></TableCell>
-              <TableCell className="w-24 h-16 border border-gray-300 relative text-center"></TableCell>
+              <TableCell
+                className={`w-24 h-16 border border-gray-300 relative ${top_color(
+                  scheme,
+                  bit
+                )}`}
+              ></TableCell>
+              <TableCell
+                className={`w-24 h-16 border border-gray-300 relative ${top_color(
+                  scheme,
+                  bit
+                )}`}
+              ></TableCell>
             </React.Fragment>
           ))}
         </TableRow>
         <TableRow>
-          {[...result].map((_, index) => (
+          {[...result].map((bit, index) => (
             <React.Fragment key={`row2-${index}`}>
-              <TableCell className="w-24 h-16 border border-gray-300 relative text-center"></TableCell>
-              <TableCell className="w-24 h-16 border border-gray-300 relative text-center"></TableCell>
+              <TableCell
+                className={`w-24 h-16 border border-gray-300 relative ${bottom_color(
+                  scheme,
+                  bit
+                )}`}
+              ></TableCell>
+              <TableCell
+                className={`w-24 h-16 border border-gray-300 relative ${bottom_color(
+                  scheme,
+                  bit
+                )}`}
+              ></TableCell>
             </React.Fragment>
           ))}
         </TableRow>

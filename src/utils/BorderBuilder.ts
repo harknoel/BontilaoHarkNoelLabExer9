@@ -9,14 +9,14 @@ export class BorderBuilder {
     return this;
   }
 
-  up(): this {
+  top(): this {
     this.addClass(
       `border-t-${this._borderWidth} border-t-${this._borderColor}-${this._borderTone}`
     );
     return this;
   }
 
-  down(): this {
+  bottom(): this {
     this.addClass(
       `border-b-${this._borderWidth} border-b-${this._borderColor}-${this._borderTone}`
     );
