@@ -50,7 +50,8 @@ export function bottom_color(scheme: string, bit: number): string {
 export function transition_color(
   scheme: string,
   output: SignalLevel[],
-  index: number
+  index: number,
+  initial: boolean
 ) {
   const borderBuilder = new BorderBuilder();
 
@@ -63,7 +64,13 @@ export function transition_color(
       break;
     case EncodingScheme.MANCHESTER:
     case EncodingScheme.DIFFERENTIAL_MANCHESTER:
-      if (!transition(output, index)) {
+      console.log("here")
+      console.log(output[index])
+      if (output[index] === SignalLevel.LOW_TO_HIGH && initial === true && index === 0) {
+        return borderBuilder.left().build();
+      } else if (output[index] === SignalLevel.HIGH_TO_LOW && initial === false && index === 0) {
+        return borderBuilder.left().build();
+      } else if (!transition(output, index) && index > 0) {
         return borderBuilder.left().build();
       }
       break;

@@ -37,7 +37,7 @@ const TableComponent = ({
                   scheme,
                   bit
                 )}
-                ${transition_color(scheme, result, index)}
+                ${transition_color(scheme, result, index, isInitiallyHigh)}
                 ${scheme === EncodingScheme.MANCHESTER || EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 4 ? "!border-t-4 border-t-red-500 border-r-4 border-r-red-500" : "") : ""}
                 ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (isInitiallyHigh && index === 0 && result[index] === 2 ? "border-l-4 border-l-red-500" : "") : ""}
                 ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (isInitiallyHigh && index === 0 && result[index] === 0 ? "border-l-4 border-l-red-500" : "") : ""}`}
@@ -65,7 +65,7 @@ const TableComponent = ({
                   scheme,
                   bit
                 )}
-                ${transition_color(scheme, result, index)}
+                ${transition_color(scheme, result, index, isInitiallyHigh)}
                 ${scheme === EncodingScheme.MANCHESTER || scheme === EncodingScheme.DIFFERENTIAL_MANCHESTER ? (bit === 3 ? "!border-b-4 border-b-red-500 border-r-4 border-r-red-500" : "") : ""}
                 ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (isInitiallyHigh === false && index === 0 && result[index] === 2 ? "border-l-4 border-l-red-500" : "") : ""}
                 ${scheme === EncodingScheme.BIPOLAR_AMI || scheme === EncodingScheme.PSEUDOTERNARY ? (isInitiallyHigh && index === 0 && result[index] === 0 ? "border-l-4 border-l-red-500" : "") : ""}`}
