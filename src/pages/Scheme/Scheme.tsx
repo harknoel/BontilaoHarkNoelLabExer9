@@ -116,6 +116,7 @@ const Scheme = () => {
                 scheme={selectedEncoding}
                 input={inputArray}
                 result={result}
+                isInitiallyHigh={isInitiallyHigh}
               />
             </div>
           </CardContent>
