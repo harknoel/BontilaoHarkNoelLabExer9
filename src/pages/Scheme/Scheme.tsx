@@ -4,6 +4,8 @@ import TableComponent from "@/components/Table";
 import { LineCoding } from "@/utils/LineCoding";
 import { SignalLevel } from "@/types/SignalLevel";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { EncodingScheme } from "@/types/EncodingScheme";
 import {
   Card,
@@ -24,11 +26,16 @@ const Scheme = () => {
   );
   const [result, setResult] = useState<SignalLevel[]>([]);
   const [error, setError] = useState<string>("");
+  const [isInitiallyHigh, setIsInitiallyHigh] = useState(false);
 
   useEffect(() => {
+    isInitiallyHigh === false
+      ? (LineCoding._state = SignalLevel.LOW)
+      : (LineCoding._state = SignalLevel.HIGH);
+
     const output = LineCoding.convert(selectedEncoding, inputArray);
     setResult(output);
-  }, [selectedEncoding, inputArray]);
+  }, [selectedEncoding, isInitiallyHigh, inputArray]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -79,12 +86,28 @@ const Scheme = () => {
                 )}
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Encoding Scheme</label>
-                <SelectComponent
-                  selectedEncoding={selectedEncoding}
-                  setSelectedEncoding={setSelectedEncoding}
-                />
+              <div className="flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-center">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Encoding Scheme</label>
+                  <SelectComponent
+                    selectedEncoding={selectedEncoding}
+                    setSelectedEncoding={setSelectedEncoding}
+                  />
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="initial-level"
+                    checked={isInitiallyHigh}
+                    onCheckedChange={setIsInitiallyHigh}
+                  />
+                  <Label
+                    htmlFor="initial-level"
+                    className="text-sm font-medium"
+                  >
+                    Initially {isInitiallyHigh ? "High" : "Low"}
+                  </Label>
+                </div>
               </div>
             </div>
 
